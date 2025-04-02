@@ -2,9 +2,11 @@ package main
 
 import (
 	"net/http"
-	"github.com/AhmedZeyad/AuthAPI/initializer"
-	"github.com/gin-gonic/gin"
+
 	"github.com/AhmedZeyad/AuthAPI/controllers"
+	"github.com/AhmedZeyad/AuthAPI/initializer"
+	"github.com/AhmedZeyad/AuthAPI/middleware"
+	"github.com/gin-gonic/gin"
 )
 func init(){
 	initializer.LoadEnvVariables()
@@ -27,6 +29,8 @@ http.StatusOK,
 
 })
 router.POST("/signup",controllers.AddUser)
+router.POST("/login",controllers.Login)
+router.POST("/validation",middleware.CheckAuth,controllers.Validation)
 
 	// run the api
 	router.Run(":9090")
